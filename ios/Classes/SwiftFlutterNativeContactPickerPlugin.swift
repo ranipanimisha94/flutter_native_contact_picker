@@ -29,7 +29,7 @@ class SinglePickerHandler: PickerHandler {
         let numbers: Array<String> = contact.phoneNumbers.compactMap { $0.value.stringValue as String }
         data["phoneNumbers"] = numbers
         
-        let emails: Array<String> = contact.emailAddresses.compactMap { $0.value.stringValue as String }
+        let emails: Array<String> = contact.emailAddresses.compactMap { $0.value as String }
         data["emails"] = emails
 
         result(data)
@@ -48,7 +48,7 @@ class MultiPickerHandler: PickerHandler {
              let numbers: [String] = contact.phoneNumbers.compactMap { $0.value.stringValue as String }
              contactInfo["phoneNumbers"] = numbers
 
-             let emails: Array<String> = contact.emailAddresses.compactMap { $0.value.stringValue as String }
+             let emails: Array<String> = contact.emailAddresses.compactMap { $0.value as String }
              contactInfo["emails"] = emails
              
              selectedContacts.append(contactInfo)
@@ -81,8 +81,8 @@ var _delegate: PickerHandler?;
               _delegate = single ? SinglePickerHandler(result: result) : MultiPickerHandler(result: result);
               let contactPicker = CNContactPickerViewController()
               contactPicker.delegate = _delegate
-              contactPicker.displayedPropertyKeys = [CNContactPhoneNumbersKey, CNContactNicknameKey, CNContactEmailAddressesKey]
-              
+              contactPicker.displayedPropertyKeys = [CNContactNicknameKey, CNContactEmailAddressesKey]
+
               // find proper keyWindow
               var keyWindow: UIWindow? = nil
               if #available(iOS 13, *) {
