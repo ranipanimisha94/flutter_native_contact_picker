@@ -81,7 +81,9 @@ var _delegate: PickerHandler?;
               _delegate = single ? SinglePickerHandler(result: result) : MultiPickerHandler(result: result);
               let contactPicker = CNContactPickerViewController()
               contactPicker.delegate = _delegate
-              contactPicker.displayedPropertyKeys = [CNContactNicknameKey, CNContactEmailAddressesKey]
+              contactPicker.displayedPropertyKeys = [CNContactPhoneNumbersKey, CNContactNicknameKey, CNContactEmailAddressesKey]
+              contactPicker.predicateForEnablingContact = NSPredicate(format: "emailAddresses.@count > 0")
+//              contactPicker.predicateForSelectionOfContact = NSPredicate(format: "emailAddresses.@count == 1")
 
               // find proper keyWindow
               var keyWindow: UIWindow? = nil
